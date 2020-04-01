@@ -1,7 +1,10 @@
-const INCREMENT = "INCREMENT";
-const DECREMENT = "DECREMENT";
-const TOGGLE_SWITCH_BUTTON = "TOGGLE_SWITCH_BUTTON";
-const CHANGE_TARIFF_VALUE = "CHANGE_TARIFF_VALUE";
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const TOGGLE_SWITCH_BUTTON = "TOGGLE_SWITCH_BUTTON";
+export const CHANGE_TARIFF_VALUE = "CHANGE_TARIFF_VALUE";
+export const FETCH_POSTS_REQUEST = "FETCH_POSTS_REQUEST";
+export const FETCH_POSTS_FAILURE = "FETCH_POSTS_FAILURE";
+export const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS";
 
 export const increment = () => {
   return {
@@ -26,4 +29,27 @@ export const changeTariffValue = tarif => {
     type: CHANGE_TARIFF_VALUE,
     tarif
   };
+};
+
+export const fetchPostsRequest = () => {
+  return {
+    type: FETCH_POSTS_REQUEST
+  };
+};
+
+export const fetchPostsFailure = () => {
+  return {
+    type: FETCH_POSTS_FAILURE
+  };
+};
+
+export const fetchPostsSuccess = results => {
+  return {
+    type: FETCH_POSTS_SUCCESS,
+    results
+  };
+};
+
+export const fetchPosts = () => dispatch => {
+  console.log("Fetching posts");
 };

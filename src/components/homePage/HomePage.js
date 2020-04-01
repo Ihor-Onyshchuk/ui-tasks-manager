@@ -5,7 +5,8 @@ import {
   increment,
   decrement,
   toggleSwitch,
-  changeTariffValue
+  changeTariffValue,
+  fetchPosts
 } from "../../actions";
 
 const HomePage = ({
@@ -15,7 +16,11 @@ const HomePage = ({
   onToggleSwitch,
   toggleSwitch,
   tarif,
-  onChangeTariffValue
+  onChangeTariffValue,
+  isLoading,
+  isError,
+  posts,
+  onFetchPosts
 }) => {
   return (
     <div>
@@ -39,14 +44,32 @@ const HomePage = ({
         <option value="medium">medium</option>
         <option value="premium">premium</option>
       </select>
+
+      <div>
+        <button onClick={() => onFetchPosts()}>getUsers</button>
+        <div>
+          {isLoading && <span>Loading...</span>}
+          {isError && !isLoading && <span>Error</span>}
+        </div>
+      </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ counter, toggleSwitch, tarif }) => ({
+const mapStateToProps = ({
   counter,
   toggleSwitch,
-  tarif
+  tarif,
+  isError,
+  isLoading,
+  posts
+}) => ({
+  counter,
+  toggleSwitch,
+  tarif,
+  isLoading,
+  isError,
+  posts
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -60,7 +83,8 @@ const mapDispatchToProps = {
   onInc: increment,
   onDec: decrement,
   onToggleSwitch: toggleSwitch,
-  onChangeTariffValue: changeTariffValue
+  onChangeTariffValue: changeTariffValue,
+  onFetchPosts: fetchPosts
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
