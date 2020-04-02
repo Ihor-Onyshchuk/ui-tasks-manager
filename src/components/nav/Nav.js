@@ -2,6 +2,7 @@ import React from "react";
 import "./Nav.scss";
 import { NavLink } from "react-router-dom";
 import Logo from "../logo/Logo";
+import ReduxTesTask from '../ReduxTestTask/ReduxTestTask';
 
 const Nav = () => {
   return (
@@ -20,6 +21,11 @@ const Nav = () => {
             sign-up
           </NavLink>
         </li>
+
+        <NavLink to='/redux-test-task' activeClassName='selected'>
+          {/* <ReduxTesTask /> */}
+          redux test task
+        </NavLink>
       </ul>
     </div>
   );
