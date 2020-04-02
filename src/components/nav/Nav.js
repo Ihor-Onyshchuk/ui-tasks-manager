@@ -2,7 +2,7 @@ import React from "react";
 import "./Nav.scss";
 import { NavLink } from "react-router-dom";
 import Logo from "../logo/Logo";
-import ReduxTesTask from '../ReduxTestTask/ReduxTestTask';
+// import ReduxTesTask from '../ReduxTestTask/ReduxTestTask';
 
 const Nav = () => {
   return (

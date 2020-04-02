@@ -1,5 +1,6 @@
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
+export const INCREMENT_BY_TWO = 'INCREMENT_BY_TWO';
 export const TOGGLE_SWITCH_BUTTON = "TOGGLE_SWITCH_BUTTON";
 export const CHANGE_TARIFF_VALUE = "CHANGE_TARIFF_VALUE";
 export const FETCH_POSTS_REQUEST = "FETCH_POSTS_REQUEST";
@@ -55,4 +56,8 @@ export const fetchPosts = () => dispatch => {
 };
 
 // __________________________
-export const 
+export const incrementByTwo = () => {
+  return {
+    type: INCREMENT_BY_TWO
+  };
+};

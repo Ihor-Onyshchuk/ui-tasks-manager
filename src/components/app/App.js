@@ -11,7 +11,12 @@ const App = () => {
       <Nav />
       <Switch>
         {routes.map(({ path, exact, component }) => (
-          <Route key={path} path={path} exact={exact} component={component} />
+          <Route
+            key={path}
+            path={path}
+            exact={exact}
+            component={component}
+          />
         ))}
       </Switch>
     </div>

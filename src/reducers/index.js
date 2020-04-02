@@ -6,8 +6,18 @@ import {
   CHANGE_TARIFF_VALUE,
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_FAILURE,
-  FETCH_POSTS_SUCCESS
+  FETCH_POSTS_SUCCESS,
+  INCREMENT_BY_TWO
 } from "../actions/index";
+
+const counterByTwo = (state = 0, action) => {
+  switch (action.type) {
+    case INCREMENT_BY_TWO:
+      return state + 2;
+    default:
+      return state;
+  }
+};
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -75,6 +85,7 @@ const posts = (state = [], action) => {
 };
 
 export default combineReducers({
+  counterByTwo,
   counter,
   toggleSwitch,
   tarif,
