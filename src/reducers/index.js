@@ -66,9 +66,6 @@ const posts = (state = [], action) => {
   switch (action.type) {
     case FETCH_POSTS_SUCCESS:
       return action.results;
-    case FETCH_POSTS_FAILURE:
-    case FETCH_POSTS_REQUEST:
-      return false;
     default:
       return state;
   }

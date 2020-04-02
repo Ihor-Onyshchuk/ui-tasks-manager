@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
 export const TOGGLE_SWITCH_BUTTON = "TOGGLE_SWITCH_BUTTON";
@@ -51,5 +53,9 @@ export const fetchPostsSuccess = results => {
 };
 
 export const fetchPosts = () => dispatch => {
-  console.log("Fetching posts");
+  dispatch(fetchPostsRequest());
+  axios
+    .get("https://jsonplaceholder.typicode.com/posts")
+    .then(response => dispatch(fetchPostsSuccess(response.data || [])))
+    .catch(() => dispatch(fetchPostsFailure()));
 };

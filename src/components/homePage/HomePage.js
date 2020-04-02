@@ -51,6 +51,11 @@ const HomePage = ({
           {isLoading && <span>Loading...</span>}
           {isError && !isLoading && <span>Error</span>}
         </div>
+        <div>
+          {posts.map(post => (
+            <div key={post.id}>{post.title}</div>
+          ))}
+        </div>
       </div>
     </div>
   );
