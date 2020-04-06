@@ -1,6 +1,7 @@
 import HomePage from "./components/homePage/HomePage";
-import SignIn from "./components/signIn/SignIn";
-import SignUp from "./components/signUp/SignUp";
+import SignIn from "./containers/signIn";
+import SignUp from "./containers/signUp";
+import { TasksList } from "./containers/TasksList";
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     path: "/sign-up",
     exact: true,
     component: SignUp
+  },
+  {
+    path: "/tasks",
+    exact: true,
+    component: TasksList
   }
 ];
 

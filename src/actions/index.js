@@ -1,37 +1,14 @@
 import axios from "axios";
 
-export const INCREMENT = "INCREMENT";
-export const DECREMENT = "DECREMENT";
-export const TOGGLE_SWITCH_BUTTON = "TOGGLE_SWITCH_BUTTON";
+export const TOGGLE_USER_AUTH = "TOGGLE_USER_AUTH";
 export const CHANGE_TARIFF_VALUE = "CHANGE_TARIFF_VALUE";
 export const FETCH_POSTS_REQUEST = "FETCH_POSTS_REQUEST";
 export const FETCH_POSTS_FAILURE = "FETCH_POSTS_FAILURE";
 export const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS";
 
-export const increment = () => {
-  return {
-    type: INCREMENT
-  };
-};
-
-export const decrement = () => {
-  return {
-    type: DECREMENT
-  };
-};
-
-export const toggleSwitch = () => {
-  return {
-    type: TOGGLE_SWITCH_BUTTON
-  };
-};
-
-export const changeTariffValue = tarif => {
-  return {
-    type: CHANGE_TARIFF_VALUE,
-    tarif
-  };
-};
+export const toggleUserAuth = () => ({
+  type: TOGGLE_USER_AUTH
+});
 
 export const fetchPostsRequest = () => {
   return {
