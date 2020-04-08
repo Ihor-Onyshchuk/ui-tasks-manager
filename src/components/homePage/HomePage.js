@@ -8,7 +8,6 @@ const HomePage = () => {
   return (
     <div>
       <h2>Welcome to Home Page!</h2>
-      <TasksList />
     </div>
   );
 };

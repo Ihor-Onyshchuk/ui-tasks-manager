@@ -6,12 +6,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import axios from "axios";
+import { setToken } from "./api/apiConfig";
 
 if (localStorage.getItem("user-token")) {
-  axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
-    "user-token"
-  )}`;
+  setToken(localStorage.getItem("user-token"));
 }
 
 ReactDOM.render(

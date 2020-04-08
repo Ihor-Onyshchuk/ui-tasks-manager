@@ -1,20 +1,14 @@
-import React, { PureComponent } from "react";
+import React from "react";
+import { loginRequest } from "./services";
+import AuthFormContainer from "../../components/auth/AuthFormContainer";
 
-export default class SignIn extends PureComponent {
-  state = {
-    error: false
-  };
+const SignIn = () => (
+  <AuthFormContainer
+    title="Sign In"
+    submitButtonName="Sign In"
+    showRememberMe
+    handleFormRequest={loginRequest}
+  />
+);
 
-  render() {
-    return <div>sign in</div>;
-  }
-}
-
-// handleInputChange = ({ target }) => {
-//   const { name } = target;
-//   const value = name === "rememberMe" ? target.checked : target.value;
-
-//   this.setState({
-//     [name]: value
-//   });
-// };
+export default SignIn;
