@@ -1,18 +1,31 @@
 import React, { PureComponent } from "react";
-import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { instance } from "../api/apiConfig";
+import "./TasksList.scss";
+import { dateFormatter } from "../utils/date";
 
 export class TasksList extends PureComponent {
   state = {
     tasks: [],
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     instance.get("tasks").then((res) => {
-      const tasks = res.data.tasks.slice(0, 5);
+      const tasks = res.data.tasks.map((task) => ({
+        ...task,
+        dueBy: dateFormater(task.dueBy),
+      }));
+      console.log(tasks);
       this.setState({ tasks: tasks });
-      console.log(localStorage.getItem("user-token"));
+    });
+  }
+
+  handleDelete = (taskId) => {
+    instance.delete(`tasks/${taskId}`).then((res) => {
+      if (res)
+        this.setState({
+          tasks: this.state.tasks.filter((task) => task.id !== taskId),
+        });
     });
   };
 
@@ -20,12 +33,26 @@ export class TasksList extends PureComponent {
     return (
       <div>
         <h4>Tasks List</h4>
-        {!this.state.tasks ? (
+        {!this.state.tasks.length ? (
           <div>Its no tasks yet! Please press to button below to add task!</div>
         ) : (
           this.state.tasks.map((task) => (
-            <ul key={task.id}>
-              <li>title: {task.title}</li>
+            <ul key={task.id} className="tasks">
+              <li className="task">
+                <span>
+                  <strong>title: </strong>
+                  {task.title}
+                </span>
+                <span>
+                  <strong>date:</strong> {task.dueBy}
+                </span>{" "}
+                <span>
+                  <strong>priority:</strong> {task.priority}
+                </span>
+                <button onClick={() => this.handleDelete(task.id)}>
+                  Delete task
+                </button>
+              </li>
             </ul>
           ))
         )}

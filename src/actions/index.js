@@ -1,38 +1,38 @@
 import axios from "axios";
 
-export const TOGGLE_USER_AUTH = "TOGGLE_USER_AUTH";
+export const SET_USER_AUTH = "SET_USER_AUTH";
 export const CHANGE_TARIFF_VALUE = "CHANGE_TARIFF_VALUE";
 export const FETCH_POSTS_REQUEST = "FETCH_POSTS_REQUEST";
 export const FETCH_POSTS_FAILURE = "FETCH_POSTS_FAILURE";
 export const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS";
 
-export const toggleUserAuth = () => ({
-  type: TOGGLE_USER_AUTH
+export const setUserAuth = () => ({
+  type: SET_USER_AUTH,
 });
 
 export const fetchPostsRequest = () => {
   return {
-    type: FETCH_POSTS_REQUEST
+    type: FETCH_POSTS_REQUEST,
   };
 };
 
 export const fetchPostsFailure = () => {
   return {
-    type: FETCH_POSTS_FAILURE
+    type: FETCH_POSTS_FAILURE,
   };
 };
 
-export const fetchPostsSuccess = results => {
+export const fetchPostsSuccess = (results) => {
   return {
     type: FETCH_POSTS_SUCCESS,
-    results
+    results,
   };
 };
 
-export const fetchPosts = () => dispatch => {
+export const fetchPosts = () => (dispatch) => {
   dispatch(fetchPostsRequest());
   axios
     .get("https://jsonplaceholder.typicode.com/posts")
-    .then(response => dispatch(fetchPostsSuccess(response.data || [])))
+    .then((response) => dispatch(fetchPostsSuccess(response.data || [])))
     .catch(() => dispatch(fetchPostsFailure()));
 };

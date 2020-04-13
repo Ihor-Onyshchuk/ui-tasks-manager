@@ -1,7 +1,9 @@
 import React, { PureComponent } from "react";
 import { withRouter } from "react-router-dom";
-import AuthForm from "./AuthForm";
-import { setToken } from "../../api/apiConfig";
+import AuthForm from "../../../components/auth/AuthForm";
+import { setToken } from "../../../api/apiConfig";
+import { setUserAuth } from "../../../actions/index";
+import { connect } from "react-redux";
 
 class AuthFormContainer extends PureComponent {
   state = {
@@ -37,8 +39,8 @@ class AuthFormContainer extends PureComponent {
     this.props
       .handleFormRequest({ email, password, rememberMe })
       .then((res) => {
-        const token = res.data.token;
-        setToken(token);
+        setToken(res.data.token);
+        this.props.setUserAuth();
         this.props.history.push("/tasks");
       })
       .catch((err) => {
@@ -61,4 +63,15 @@ class AuthFormContainer extends PureComponent {
   }
 }
 
-export default withRouter(AuthFormContainer);
+const mapStateToProps = ({ isAuth }) => ({
+  isAuth,
+});
+
+const mapDispatchToProps = {
+  setUserAuth: setUserAuth,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(AuthFormContainer));

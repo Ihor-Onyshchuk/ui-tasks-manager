@@ -1,8 +1,5 @@
 import React from "react";
 import "./HomePage.scss";
-import { connect } from "react-redux";
-import { fetchPosts } from "../../actions";
-import { TasksList } from "../../containers/TasksList";
 
 const HomePage = () => {
   return (

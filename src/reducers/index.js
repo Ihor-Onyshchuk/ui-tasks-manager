@@ -3,12 +3,12 @@ import {
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_FAILURE,
   FETCH_POSTS_SUCCESS,
-  TOGGLE_USER_AUTH
+  SET_USER_AUTH,
 } from "../actions/index";
 
 const isAuth = (state = false, action) => {
   switch (action.type) {
-    case TOGGLE_USER_AUTH:
+    case SET_USER_AUTH:
       return true;
     default:
       return state;
@@ -52,5 +52,5 @@ export default combineReducers({
   isLoading,
   isError,
   posts,
-  isAuth
+  isAuth,
 });

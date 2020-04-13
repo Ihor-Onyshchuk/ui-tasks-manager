@@ -1,6 +1,6 @@
 import React from "react";
 import { loginRequest } from "./services";
-import AuthFormContainer from "../../components/auth/AuthFormContainer";
+import AuthFormContainer from "../AuthFormContainer";
 
 const SignIn = () => (
   <AuthFormContainer

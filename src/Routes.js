@@ -1,6 +1,6 @@
 import HomePage from "./components/homePage/HomePage";
-import SignIn from "./containers/signIn";
-import SignUp from "./containers/signUp";
+import SignIn from "./containers/auth/authFormContainer/signIn";
+import SignUp from "./containers/auth/authFormContainer/signUp";
 import { TasksList } from "./containers/TasksList";
 import AddTask from "./containers/addTask/AddTask";
 

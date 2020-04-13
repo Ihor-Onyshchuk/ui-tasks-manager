@@ -1,6 +1,6 @@
 import React from "react";
 import { registrationRequest } from "./services";
-import AuthFormContainer from "../../components/auth/AuthFormContainer";
+import AuthFormContainer from "../AuthFormContainer";
 
 const SignUp = () => (
   <AuthFormContainer
