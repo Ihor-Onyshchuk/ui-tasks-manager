@@ -16,7 +16,7 @@ const Auth = ({
     <div className="row justify-content-center">
       <form
         onSubmit={onSubmit}
-        className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 p-5 mt-5 rounded shadow bg-white"
+        className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 p-5 mt-5 rounded shadow-lg"
       >
         <legend className="mt-5 mb-4 font-weight-bold text-center">
           {title}

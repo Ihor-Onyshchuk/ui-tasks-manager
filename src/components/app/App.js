@@ -7,7 +7,7 @@ import { Switch, Route } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="App pb-5">
+    <div className="App">
       <Nav />
       <Switch>
         {routes.map(({ path, exact, component }) => (
