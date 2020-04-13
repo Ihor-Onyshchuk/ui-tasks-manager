@@ -7,7 +7,9 @@ import { TasksList } from "../../containers/TasksList";
 const HomePage = () => {
   return (
     <div>
-      <h2>Welcome to Home Page!</h2>
+      <h2 className="font-weight-bold pb-2 alert display-4">
+        Welcome to Home Page!
+      </h2>
       <TasksList />
     </div>
   );

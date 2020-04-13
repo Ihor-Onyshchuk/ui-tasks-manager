@@ -16,8 +16,13 @@ export class TasksList extends PureComponent {
   render() {
     return (
       <div>
-        <h4>Tasks List</h4>
-        <button onClick={this.onGettingTasks}>get Tasks</button>
+        <h4 className="text-monospace">Tasks List</h4>
+        <button
+          className="alert-link text-capitalize dropdown-toggle rounded-lg p-1 mt-4"
+          onClick={this.onGettingTasks}
+        >
+          get Tasks
+        </button>
       </div>
     );
   }
