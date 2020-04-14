@@ -97,7 +97,7 @@ const formatMapper = {
 
 const getCurrentFormat = (format) => {
   return Object.keys(formatMapper).reduce((memo, period) => {
-    const getFormat = () =>
+    const getFormat = (per) =>
       formatMapper[period].find((item) => format.includes(item)) ||
       formatMapper[per][0];
     return { ...memo, [period]: getFormat() };
@@ -123,7 +123,7 @@ const getDateData = (date) => {
   };
 };
 
-const dateFormatter = (date, format) => {
+export const dateFormatter = (date, format) => {
   const currentDateData = getDateData(date);
   const currentFormat = getCurrentFormat(format);
   console.log(Object.values(currentFormat));

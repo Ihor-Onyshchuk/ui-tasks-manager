@@ -3,6 +3,7 @@ import SignIn from "./containers/auth/authFormContainer/signIn";
 import SignUp from "./containers/auth/authFormContainer/signUp";
 import { TasksList } from "./containers/TasksList";
 import AddTask from "./containers/addTask/AddTask";
+import TaskDetails from "./containers/TaskDetails/TaskDetails";
 
 const routes = [
   {
@@ -29,6 +30,12 @@ const routes = [
     path: "/create-task",
     exact: true,
     component: AddTask,
+  },
+
+  {
+    path: `/tasks/:taskId`,
+    exact: true,
+    component: TaskDetails,
   },
 ];
 

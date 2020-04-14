@@ -3,20 +3,21 @@ import { NavLink } from "react-router-dom";
 import { instance } from "../api/apiConfig";
 import "./TasksList.scss";
 import { dateFormatter } from "../utils/date";
+import Preloader from "../components/preloader/Preloader";
 
 export class TasksList extends PureComponent {
   state = {
     tasks: [],
+    isLoading: true,
   };
 
   componentDidMount() {
     instance.get("tasks").then((res) => {
       const tasks = res.data.tasks.map((task) => ({
         ...task,
-        dueBy: dateFormater(task.dueBy),
+        dueBy: dateFormatter(task.dueBy * 1000, "dd mmmm, yyyy"),
       }));
-      console.log(tasks);
-      this.setState({ tasks: tasks });
+      this.setState({ tasks: tasks, isLoading: false });
     });
   }
 
@@ -30,6 +31,8 @@ export class TasksList extends PureComponent {
   };
 
   render() {
+    if (this.state.isLoading) return <Preloader />;
+
     return (
       <div>
         <h4>Tasks List</h4>
@@ -39,10 +42,10 @@ export class TasksList extends PureComponent {
           this.state.tasks.map((task) => (
             <ul key={task.id} className="tasks">
               <li className="task">
-                <span>
+                <NavLink to={`${this.props.match.path}/${task.id}`}>
                   <strong>title: </strong>
                   {task.title}
-                </span>
+                </NavLink>
                 <span>
                   <strong>date:</strong> {task.dueBy}
                 </span>{" "}

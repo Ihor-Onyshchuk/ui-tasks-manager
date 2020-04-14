@@ -70,8 +70,7 @@ export default class AddTask extends PureComponent {
   }
 }
 
-{
-  /* <form onSubmit={this.handleSubmit}>
+/* <form onSubmit={this.handleSubmit}>
 <label>
   Pick your favorite flavor:
   <select value={this.state.value} onChange={this.handleChange}>            <option value="grapefruit">Grapefruit</option>
@@ -82,4 +81,3 @@ export default class AddTask extends PureComponent {
 </label>
 <input type="submit" value="Submit" />
 </form> */
-}
