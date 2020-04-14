@@ -1,9 +1,9 @@
 import React, { PureComponent } from "react";
 import { withRouter } from "react-router-dom";
-import AuthForm from "../../../components/auth/AuthForm";
 import { setToken } from "../../../api/apiConfig";
 import { setUserAuth } from "../../../actions/index";
 import { connect } from "react-redux";
+import AuthForm from "../../../components/auth/AuthForm";
 
 class AuthFormContainer extends PureComponent {
   state = {

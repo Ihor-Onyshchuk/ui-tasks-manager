@@ -9,7 +9,6 @@ const HomePage = () => {
           <h2 className="font-weight-bold pb-2 mt-5 alert display-4">
             Welcome to Home Page!
           </h2>
-          <TasksList />
         </div>
       </div>
     </div>
