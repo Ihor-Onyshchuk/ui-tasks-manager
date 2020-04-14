@@ -12,41 +12,41 @@ class AuthFormContainer extends PureComponent {
     rememberMe: false,
     errors: {
       fields: null,
-      message: "",
-    },
+      message: ""
+    }
   };
 
   handleInputChange = ({ target: { name, value, checked } }) => {
     const val = name === "rememberMe" ? checked : value;
 
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       [name]: val,
       errors: {
         message: "",
         fields: prevState.errors.fields
           ? {
               ...prevState.errors.fields,
-              [name]: null,
+              [name]: null
             }
-          : null,
-      },
+          : null
+      }
     }));
   };
 
-  handleFormSubmit = (event) => {
+  handleFormSubmit = event => {
     event.preventDefault();
     const { email, password, rememberMe } = this.state;
     this.props
       .handleFormRequest({ email, password, rememberMe })
-      .then((res) => {
+      .then(res => {
         setToken(res.data.token);
         this.props.setUserAuth();
         this.props.history.push("/tasks");
       })
-      .catch((err) => {
+      .catch(err => {
         if (err?.response?.data)
           this.setState({
-            errors: err.response.data,
+            errors: err.response.data
           });
       });
   };
@@ -64,11 +64,11 @@ class AuthFormContainer extends PureComponent {
 }
 
 const mapStateToProps = ({ isAuth }) => ({
-  isAuth,
+  isAuth
 });
 
 const mapDispatchToProps = {
-  setUserAuth: setUserAuth,
+  setUserAuth: setUserAuth
 };
 
 export default connect(
