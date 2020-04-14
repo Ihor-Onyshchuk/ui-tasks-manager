@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import Logo from "../logo/Logo";
 import { connect } from "react-redux";
 
-const Nav = (props) => {
+const Nav = props => {
   return (
     <nav className="navbar navbar-expand navbar-light shadow mb-4 pl-3 py-2">
       <NavLink to="/" className="navbar-brand">
@@ -12,7 +12,7 @@ const Nav = (props) => {
       </NavLink>
       {props.isAuth ? (
         <NavLink to="/tasks" className="tasksLink">
-          tasks
+          Tasks
         </NavLink>
       ) : (
         <div className="navbar-nav ml-auto">
@@ -29,7 +29,7 @@ const Nav = (props) => {
 };
 
 const mapStateToProps = ({ isAuth }) => ({
-  isAuth,
+  isAuth
 });
 
 export default connect(mapStateToProps)(Nav);
