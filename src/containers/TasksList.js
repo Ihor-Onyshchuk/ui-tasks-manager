@@ -8,24 +8,24 @@ import Preloader from "../components/preloader/Preloader";
 export class TasksList extends PureComponent {
   state = {
     tasks: [],
-    isLoading: true
+    isLoading: true,
   };
 
   componentDidMount() {
-    instance.get("tasks").then(res => {
-      const tasks = res.data.tasks.map(task => ({
+    instance.get("tasks").then((res) => {
+      const tasks = res.data.tasks.map((task) => ({
         ...task,
-        dueBy: dateFormatter(task.dueBy * 1000, "dd mmmm, yyyy")
+        dueBy: dateFormatter(task.dueBy * 1000, "dd mmmm, yyyy"),
       }));
       this.setState({ tasks: tasks, isLoading: false });
     });
   }
 
-  handleDelete = taskId => {
-    instance.delete(`tasks/${taskId}`).then(res => {
+  handleDelete = (taskId) => {
+    instance.delete(`tasks/${taskId}`).then((res) => {
       if (res)
         this.setState({
-          tasks: this.state.tasks.filter(task => task.id !== taskId)
+          tasks: this.state.tasks.filter((task) => task.id !== taskId),
         });
     });
   };
@@ -39,7 +39,7 @@ export class TasksList extends PureComponent {
         {!this.state.tasks.length ? (
           <div>Its no tasks yet! Please press to button below to add task!</div>
         ) : (
-          this.state.tasks.map(task => (
+          this.state.tasks.map((task) => (
             <ul key={task.id} className="tasks">
               <li className="task">
                 <NavLink to={`${this.props.match.path}/${task.id}`}>
@@ -52,14 +52,15 @@ export class TasksList extends PureComponent {
                 <span>
                   <strong>priority:</strong> {task.priority}
                 </span>
-                <button onClick={() => this.handleDelete(task.id)}>
-                  Delete task
-                </button>
+                <i
+                  onClick={() => this.handleDelete(task.id)}
+                  className="far fa-trash-alt"
+                ></i>
               </li>
             </ul>
           ))
         )}
-        <NavLink to="/create-task">Add task</NavLink>
+        <NavLink to="/create-task">Add Task</NavLink>
       </div>
     );
   }

@@ -126,7 +126,7 @@ const getDateData = (date) => {
 export const dateFormatter = (date, format) => {
   const currentDateData = getDateData(date);
   const currentFormat = getCurrentFormat(format);
-  console.log(Object.values(currentFormat));
+
   return Object.keys(currentFormat)
     .reduce((memo, period) => {
       return [
@@ -144,4 +144,3 @@ export const dateFormatter = (date, format) => {
 
   // return `${day} ${month}, ${year}`;
 };
-console.log(dateFormatter(1549477494000, "dd mmmm, yyyy"));
