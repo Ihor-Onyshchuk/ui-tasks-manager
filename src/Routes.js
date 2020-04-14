@@ -31,11 +31,15 @@ const routes = [
     exact: true,
     component: AddTask,
   },
-
   {
     path: `/tasks/:taskId`,
     exact: true,
     component: TaskDetails,
+  },
+  {
+    path: `/tasks/:taskId/update`,
+    exact: true,
+    component: AddTask,
   },
 ];
 

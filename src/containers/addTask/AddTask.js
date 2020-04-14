@@ -1,29 +1,49 @@
 import React, { PureComponent } from "react";
 import { instance } from "../../api/apiConfig";
+import { dateFormatter } from "../../utils/date";
+
+const defaultState = {
+  title: "",
+  dueBy: "",
+  priority: "High",
+};
 
 export default class AddTask extends PureComponent {
-  state = {
-    title: "",
-    dueBy: "",
-    priority: "High",
-  };
+  constructor(props) {
+    super(props);
+    this.taskId = this.props.match.params.taskId || null;
+    this.isEditMode = !!this.taskId || false;
+    this.state = {
+      ...defaultState,
+    };
+  }
+
+  componentDidMount() {
+    if (this.isEditMode) {
+      instance.get(`tasks/${this.taskId}`).then((res) => {
+        const response = res.data.task;
+        this.setState({
+          title: response.title,
+          dueBy: dateFormatter(response.dueBy * 1000, "yyyy-mm-dd"),
+          priority: response.priority,
+        });
+      });
+    }
+  }
 
   handleSubmit = (event) => {
     event.preventDefault();
     let { title, dueBy, priority } = this.state;
     dueBy = new Date(dueBy).getTime() / 1000;
-    instance
-      .post("tasks", {
-        title,
-        dueBy,
-        priority,
-      })
-      .then(
-        this.setState({
-          title: "",
-          dueBy: "",
-        })
-      );
+
+    const method = this.isEditMode ? "put" : "post";
+    const endpoint = this.isEditMode ? `tasks/${this.taskId}` : "tasks";
+
+    instance[method](endpoint, {
+      title,
+      dueBy,
+      priority,
+    }).then(() => this.setState({ ...defaultState }));
   };
 
   handleInputChange = ({ target: { name, value } }) => {
@@ -69,15 +89,3 @@ export default class AddTask extends PureComponent {
     );
   }
 }
-
-/* <form onSubmit={this.handleSubmit}>
-<label>
-  Pick your favorite flavor:
-  <select value={this.state.value} onChange={this.handleChange}>            <option value="grapefruit">Grapefruit</option>
-    <option value="lime">Lime</option>
-    <option value="coconut">Coconut</option>
-    <option value="mango">Mango</option>
-  </select>
-</label>
-<input type="submit" value="Submit" />
-</form> */
