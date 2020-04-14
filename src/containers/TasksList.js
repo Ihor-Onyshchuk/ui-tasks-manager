@@ -35,7 +35,7 @@ export class TasksList extends PureComponent {
 
     return (
       <div>
-        <h4>Tasks List</h4>
+        <h4 className="text-monospace">Tasks List</h4>
         {!this.state.tasks.length ? (
           <div>Its no tasks yet! Please press to button below to add task!</div>
         ) : (
@@ -59,7 +59,6 @@ export class TasksList extends PureComponent {
             </ul>
           ))
         )}
-
         <NavLink to="/create-task">Add task</NavLink>
       </div>
     );

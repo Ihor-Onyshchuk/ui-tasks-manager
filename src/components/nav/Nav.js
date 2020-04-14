@@ -6,29 +6,25 @@ import { connect } from "react-redux";
 
 const Nav = (props) => {
   return (
-    <div className="Nav">
-      <NavLink to="/">
-        <Logo />
+    <nav className="navbar navbar-expand navbar-light shadow mb-4 pl-3 py-2">
+      <NavLink to="/" className="navbar-brand">
+        <img src="placeholder.svg" width="35" height="35" title="Home" alt="" />
       </NavLink>
       {props.isAuth ? (
         <NavLink to="/tasks" className="tasksLink">
           tasks
         </NavLink>
       ) : (
-        <ul>
-          <li>
-            <NavLink to="/sign-in" activeClassName="selected">
-              sign-in
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/sign-up" activeClassName="selected">
-              sign-up
-            </NavLink>
-          </li>
-        </ul>
+        <div className="navbar-nav ml-auto">
+          <NavLink to="/sign-in" className="nav-item nav-link text-primary">
+            Sign-In
+          </NavLink>
+          <NavLink to="/sign-up" className="nav-item nav-link text-success">
+            Sign-Up
+          </NavLink>
+        </div>
       )}
-    </div>
+    </nav>
   );
 };
 
