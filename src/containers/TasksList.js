@@ -4,6 +4,14 @@ import { instance } from "../api/apiConfig";
 import "./TasksList.scss";
 import { dateFormatter } from "../utils/date";
 import Preloader from "../components/preloader/Preloader";
+import SortIcon from "../components/common/icons/SortIcon";
+import { TdRow, ThRow } from "../components/common/table/TRow";
+
+const tHead = [
+  { name: "Title", value: "title" },
+  { name: "Date", value: "dueBy" },
+  { name: "Priority", value: "priority" },
+];
 
 export class TasksList extends PureComponent {
   state = {
@@ -34,8 +42,14 @@ export class TasksList extends PureComponent {
     });
   };
 
-  handleFilterChange = (name, value) => {
-    instance.get(`tasks?sort=${name}%20${value}`).then((res) => {
+  handleFilterChange = (sortName) => {
+    console.log("handleFilterChange");
+    const {
+      activeFilter: { value, name },
+    } = this.state;
+    const filter =
+      sortName === name ? (value === "desc" ? "asc" : "desc") : "desc";
+    instance.get(`tasks?sort=${sortName}%20${filter}`).then((res) => {
       const tasks = res.data.tasks.map((task) => ({
         ...task,
         dueBy: dateFormatter(task.dueBy * 1000, "dd mmmm, yyyy"),
@@ -43,82 +57,67 @@ export class TasksList extends PureComponent {
       this.setState({
         tasks: tasks,
         isLoading: false,
-        activeFilter: { name: name, value: value },
+        activeFilter: { name: sortName, value: filter },
       });
     });
   };
 
+  renderRow = (task) => {
+    const { title, dueBy, priority, id } = task;
+    const { match } = this.props;
+    return (
+      <TdRow key={id}>
+        <NavLink to={`${match.path}/${id}`}>{title}</NavLink>
+        {dueBy}
+        {priority}
+        <>
+          <NavLink to={`${match.path}/${id}/update`}>
+            <i className="fas fa-pencil-alt mr-3" />
+          </NavLink>
+          <i
+            onClick={() => this.handleDelete(id)}
+            className="far fa-trash-alt"
+          />
+        </>
+      </TdRow>
+    );
+  };
+
+  getDirection = (sortName) => {
+    const {
+      activeFilter: { name, value },
+    } = this.state;
+
+    return name === sortName ? value : null;
+  };
+
   render() {
-    if (this.state.isLoading) return <Preloader />;
-    let { value, name } = this.state.activeFilter;
+    const { isLoading, tasks } = this.state;
 
-    if (value === "desc") {
-      value = "asc";
-    } else {
-      value = "desc";
-    }
-
-    const renderRow = (task) => {
-      const { title, dueBy, priority, id } = task;
-      return (
-        <tr key={id}>
-          <td>
-            <NavLink to={`${this.props.match.path}/${id}`}>{title}</NavLink>
-          </td>
-          <td>{dueBy}</td>
-          <td>{priority}</td>
-          <td>
-            <NavLink to={`${this.props.match.path}/${id}/update`}>
-              <i className="fas fa-pencil-alt mr-3"></i>
-            </NavLink>
-            <i
-              onClick={() => this.handleDelete(id)}
-              className="far fa-trash-alt"
-            ></i>
-          </td>
-        </tr>
-      );
-    };
+    if (isLoading) return <Preloader />;
 
     return (
       <div>
         <h4 className="text-monospace">Tasks List</h4>
-        {!this.state.tasks.length ? (
+        {!tasks.length ? (
           <div>Its no tasks yet! Please press to button below to add task!</div>
         ) : (
           <table className="table">
             <thead>
-              <tr>
-                <th>
-                  <i
-                    className={`fas fa-chevron-${
-                      value === "desc" && name === "title" ? "down" : "up"
-                    }`}
-                    onClick={() => this.handleFilterChange("title", value)}
-                  ></i>
-                  Title
-                </th>
-                <th>
-                  <i
-                    className={`fas fa-chevron-${
-                      value === "desc" && name === "dueBy" ? "down" : "up"
-                    }`}
-                    onClick={() => this.handleFilterChange("dueBy", value)}
-                  ></i>
-                  Date
-                </th>
-                <th>
-                  <i
-                    className={`fas fa-chevron-${
-                      value === "desc" && name === "priority" ? "down" : "up"
-                    }`}
-                    onClick={() => this.handleFilterChange("priority", value)}
-                  ></i>
-                  Priority
-                </th>
-              </tr>
+              <ThRow>
+                {tHead.map(({ name, value }) => (
+                  <div
+                    onClick={() => this.handleFilterChange(value)}
+                    className="cursor-pointer"
+                  >
+                    {<SortIcon direction={this.getDirection(value)} />}
+                    {name}
+                  </div>
+                ))}
+                <div>Action</div>
+              </ThRow>
             </thead>
-            <tbody>{this.state.tasks.map(renderRow)}</tbody>
+            <tbody>{tasks.map(this.renderRow)}</tbody>
           </table>
         )}
         <NavLink to="/create-task">Add Task</NavLink>
