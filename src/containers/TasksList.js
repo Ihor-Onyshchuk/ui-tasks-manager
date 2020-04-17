@@ -50,13 +50,13 @@ export class TasksList extends PureComponent {
 
   render() {
     if (this.state.isLoading) return <Preloader />;
-    const { value, name } = this.state.activeFilter;
+    let { value, name } = this.state.activeFilter;
 
-    const filterMapping = {
-      title: { name: "title", value: "asc" },
-      dueBy: { name: "dueBy", value: "asc" },
-      priority: { name: "priority", value: "asc" },
-    };
+    if (value === "desc") {
+      value = "asc";
+    } else {
+      value = "desc";
+    }
 
     const renderRow = (task) => {
       const { title, dueBy, priority, id } = task;
@@ -94,12 +94,7 @@ export class TasksList extends PureComponent {
                     className={`fas fa-chevron-${
                       value === "desc" && name === "title" ? "down" : "up"
                     }`}
-                    onClick={() =>
-                      this.handleFilterChange(
-                        "title",
-                        value === "desc" ? "asc" : "desc"
-                      )
-                    }
+                    onClick={() => this.handleFilterChange("title", value)}
                   ></i>
                   Title
                 </th>
@@ -108,12 +103,7 @@ export class TasksList extends PureComponent {
                     className={`fas fa-chevron-${
                       value === "desc" && name === "dueBy" ? "down" : "up"
                     }`}
-                    onClick={() =>
-                      this.handleFilterChange(
-                        "dueBy",
-                        value === "desc" ? "asc" : "desc"
-                      )
-                    }
+                    onClick={() => this.handleFilterChange("dueBy", value)}
                   ></i>
                   Date
                 </th>
@@ -122,12 +112,7 @@ export class TasksList extends PureComponent {
                     className={`fas fa-chevron-${
                       value === "desc" && name === "priority" ? "down" : "up"
                     }`}
-                    onClick={() =>
-                      this.handleFilterChange(
-                        "priority",
-                        value === "desc" ? "asc" : "desc"
-                      )
-                    }
+                    onClick={() => this.handleFilterChange("priority", value)}
                   ></i>
                   Priority
                 </th>
