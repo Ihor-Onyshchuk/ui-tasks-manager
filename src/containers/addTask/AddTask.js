@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import { instance } from "../../api/apiConfig";
-import { dateFormatter } from "../../utils/date";
+import { dateFormatter } from "../../utils/date/formatter";
+import Calendar from "../calendar/Calendar";
 
 const defaultState = {
   title: "",
@@ -54,12 +55,12 @@ export default class AddTask extends PureComponent {
 
   render() {
     return (
-      <div className="container shadow-lg pt-5 pb-5">
-        <div className="row">
-          <div className="col-12 col-md-6">
+      <div className="container shadow-lg pt-5 pb-5 ">
+        <div className="row ">
+          <div className="col col-md-6 d-flex">
             <form onSubmit={this.handleSubmit}>
-              <div class="form-row">
-                <div class="form-group col-12 text-left mb-3">
+              <div className="form-row">
+                <div className="form-group col-12 text-left mb-3">
                   <label className="font-weight-bold">Title:</label>
                   <input
                     className="form-control"
@@ -70,7 +71,7 @@ export default class AddTask extends PureComponent {
                     placeholder="Text"
                   />
                 </div>
-                <div class="form-group col-md-6 text-left mb-3">
+                <div className="form-group col-md-6 text-left mb-3">
                   <label className="font-weight-bold">Due by:</label>
                   <input
                     className="form-control"
@@ -80,7 +81,7 @@ export default class AddTask extends PureComponent {
                     onChange={this.handleInputChange}
                   />
                 </div>
-                <div class="form-group col-md-6 text-left mb-3">
+                <div className="form-group col-md-6 text-left mb-3">
                   <label className="font-weight-bold">Priority:</label>
                   <select
                     className="form-control"
@@ -93,13 +94,16 @@ export default class AddTask extends PureComponent {
                     <option value="Low">Low</option>
                   </select>
                 </div>
-                <div class="form-group text-left mt-3 col-12">
+                <div className="form-group text-left mt-3 col-12">
                   <button className="btn btn-primary" type="submit">
                     Add task
                   </button>
                 </div>
               </div>
             </form>
+          </div>
+          <div className=" col ml-5 p-1 text-left">
+            <Calendar />
           </div>
         </div>
       </div>

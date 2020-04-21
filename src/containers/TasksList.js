@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { NavLink } from "react-router-dom";
 import { instance } from "../api/apiConfig";
 import "./TasksList.scss";
-import { dateFormatter } from "../utils/date";
+import { dateFormatter } from "../utils/date/formatter";
 import Preloader from "../components/preloader/Preloader";
 import SortIcon from "../components/common/icons/SortIcon";
 import { TdRow, ThRow } from "../components/common/table/TRow";
@@ -43,7 +43,6 @@ export class TasksList extends PureComponent {
   };
 
   handleFilterChange = (sortName) => {
-    console.log("handleFilterChange");
     const {
       activeFilter: { value, name },
     } = this.state;
@@ -71,7 +70,7 @@ export class TasksList extends PureComponent {
         {dueBy}
         {priority}
         <>
-          <NavLink to={`${match.path}/${id}/update`}>
+          <NavLink to={`${match.path}/${id}/edit`}>
             <i className="fas fa-pencil-alt mr-3" />
           </NavLink>
           <i

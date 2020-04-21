@@ -37,7 +37,7 @@ const routes = [
     component: TaskDetails,
   },
   {
-    path: `/tasks/:taskId/update`,
+    path: `/tasks/:taskId/edit`,
     exact: true,
     component: AddTask,
   },
