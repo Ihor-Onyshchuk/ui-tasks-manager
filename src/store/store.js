@@ -4,12 +4,13 @@ import reducers from "../reducers/index";
 import thunk from "redux-thunk";
 
 const initialState = {
+  toggleTitleColor: false,
   counter: 0,
   toggleSwitch: false,
   tarif: "free",
   isLoading: false,
   isError: false,
-  posts: []
+  posts: [],
 };
 
 export const store = createStore(

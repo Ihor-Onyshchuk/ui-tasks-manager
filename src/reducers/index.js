@@ -6,8 +6,18 @@ import {
   CHANGE_TARIFF_VALUE,
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_FAILURE,
-  FETCH_POSTS_SUCCESS
+  FETCH_POSTS_SUCCESS,
+  TOGGLE_TITLE_COLOR,
 } from "../actions/index";
+
+const toggleTitleColor = (state = false, action) => {
+  switch (action.type) {
+    case TOGGLE_TITLE_COLOR:
+      return !state;
+    default:
+      return state;
+  }
+};
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -77,5 +87,6 @@ export default combineReducers({
   tarif,
   isLoading,
   isError,
-  posts
+  posts,
+  toggleTitleColor,
 });

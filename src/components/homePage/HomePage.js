@@ -6,7 +6,8 @@ import {
   decrement,
   toggleSwitch,
   changeTariffValue,
-  fetchPosts
+  fetchPosts,
+  toggleTitleColor,
 } from "../../actions";
 
 const HomePage = ({
@@ -20,11 +21,16 @@ const HomePage = ({
   isLoading,
   isError,
   posts,
-  onFetchPosts
+  onFetchPosts,
+  toggleTitleColor,
+  onToggleTitleColor,
 }) => {
   return (
     <div>
-      <h2>Welcome to Home Page!</h2>
+      <h2 className={toggleTitleColor ? "titleGreen" : "titleRed"}>
+        Welcome to Home Page!
+      </h2>
+      <button onClick={() => onToggleTitleColor()}>Change title color</button>
       <h3>{counter}</h3>
       <button onClick={() => onInc()}>+</button>
       <button onClick={() => onDec()}>-</button>
@@ -38,7 +44,7 @@ const HomePage = ({
 
       <select
         value={tarif}
-        onChange={event => onChangeTariffValue(event.target.value)}
+        onChange={(event) => onChangeTariffValue(event.target.value)}
       >
         <option value="free">free</option>
         <option value="medium">medium</option>
@@ -52,7 +58,7 @@ const HomePage = ({
           {isError && !isLoading && <span>Error</span>}
         </div>
         <div>
-          {posts.map(post => (
+          {posts.map((post) => (
             <div key={post.id}>{post.title}</div>
           ))}
         </div>
@@ -67,14 +73,16 @@ const mapStateToProps = ({
   tarif,
   isError,
   isLoading,
-  posts
+  posts,
+  toggleTitleColor,
 }) => ({
   counter,
   toggleSwitch,
   tarif,
   isLoading,
   isError,
-  posts
+  posts,
+  toggleTitleColor,
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -89,7 +97,8 @@ const mapDispatchToProps = {
   onDec: decrement,
   onToggleSwitch: toggleSwitch,
   onChangeTariffValue: changeTariffValue,
-  onFetchPosts: fetchPosts
+  onFetchPosts: fetchPosts,
+  onToggleTitleColor: toggleTitleColor,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
