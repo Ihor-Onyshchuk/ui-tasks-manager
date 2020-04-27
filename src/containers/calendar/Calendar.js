@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, Fragment } from "react";
 import "./Calendar.scss";
 import { monthFullName, dayWeekFullName } from "../../utils/date/static";
 
@@ -17,8 +17,28 @@ export default class Calendar extends PureComponent {
   };
 
   toggleMonth = (direction) => {
+    const monthCounter =
+      this.state.month >= 11
+        ? 0
+        : this.state.month === 0
+        ? 11
+        : this.state.month;
+
+    if (this.state.month >= 11 && direction > 0) {
+      this.handleYearChange(direction, monthCounter);
+    } else if (this.state.month === 0 && direction < 0) {
+      this.handleYearChange(direction, monthCounter);
+    }
+
     this.setState((state) => ({
       month: state.month + direction,
+    }));
+  };
+
+  handleYearChange = (direction, monthCounter) => {
+    this.setState((state) => ({
+      year: state.year + direction,
+      month: monthCounter,
     }));
   };
 
@@ -32,7 +52,7 @@ export default class Calendar extends PureComponent {
             onClick={() => this.toggleMonth(-1)}
           />
           <label className="mb-0">
-            <select value={this.state.month} onChange={this.handleSelectMonth}>
+            <select value={month} onChange={this.handleSelectMonth}>
               {monthFullName.map((month, index) => (
                 <option value={index}>{month}</option>
               ))}

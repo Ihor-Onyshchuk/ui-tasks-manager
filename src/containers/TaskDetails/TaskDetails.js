@@ -15,6 +15,7 @@ export default class TaskDetails extends PureComponent {
   componentDidMount() {
     getTaskById(this.props.match.params.taskId).then((res) => {
       const task = res.data.task;
+      console.log(task.dueBy * 1000);
       this.setState({
         task: {
           ...task,
