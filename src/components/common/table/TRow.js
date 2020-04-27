@@ -12,5 +12,7 @@ export const ThRow = ({ children }) => (
     {React.Children.map(children, (child) => (
       <th className="text-left">{child}</th>
     ))}
-  </tr>
+    
+    
+    </tr>
 );
