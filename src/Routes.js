@@ -1,7 +1,7 @@
 import HomePage from "./components/homePage/HomePage";
 import SignIn from "./containers/auth/authFormContainer/signIn";
 import SignUp from "./containers/auth/authFormContainer/signUp";
-import { TasksList } from "./containers/TasksList";
+import  TasksList  from "./containers/TasksList";
 import AddTask from "./containers/addTask/AddTask";
 import TaskDetails from "./containers/TaskDetails/TaskDetails";
 
@@ -37,7 +37,7 @@ const routes = [
     component: TaskDetails,
   },
   {
-    path: `/tasks/:taskId/update`,
+    path: `/tasks/:taskId/edit`,
     exact: true,
     component: AddTask,
   },

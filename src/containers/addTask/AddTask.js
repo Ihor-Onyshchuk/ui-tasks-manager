@@ -1,11 +1,18 @@
 import React, { PureComponent } from "react";
 import { instance } from "../../api/apiConfig";
-import { dateFormatter } from "../../utils/date";
+import { dateFormatter } from "../../utils/date/formatter";
+import Calendar from "../calendar/Calendar";
+import Flatpicker from "../calendar/Flatpicker";
+import { format } from "date-fns";
 
 const defaultState = {
   title: "",
-  dueBy: "",
+  dueBy: undefined,
   priority: "High",
+};
+
+const dateToTimestamp = (date) => {
+  return Math.floor(new Date(date).getTime() / 1000);
 };
 
 export default class AddTask extends PureComponent {
@@ -23,9 +30,8 @@ export default class AddTask extends PureComponent {
       instance.get(`tasks/${this.taskId}`).then((res) => {
         const response = res.data.task;
         this.setState({
-          title: response.title,
-          dueBy: dateFormatter(response.dueBy * 1000, "yyyy-mm-dd"),
-          priority: response.priority,
+          ...response,
+          dueBy: response.dueBy * 1000,
         });
       });
     }
@@ -34,7 +40,7 @@ export default class AddTask extends PureComponent {
   handleSubmit = (event) => {
     event.preventDefault();
     let { title, dueBy, priority } = this.state;
-    dueBy = new Date(dueBy).getTime() / 1000;
+    dueBy = dateToTimestamp(dueBy);
 
     const method = this.isEditMode ? "put" : "post";
     const endpoint = this.isEditMode ? `tasks/${this.taskId}` : "tasks";
@@ -52,14 +58,19 @@ export default class AddTask extends PureComponent {
     });
   };
 
+  handleDateChange = (dueBy) => {
+    this.setState({ dueBy: new Date(dueBy).getTime() });
+  };
+
   render() {
+    const { dueBy } = this.state;
     return (
-      <div className="container shadow-lg pt-5 pb-5">
-        <div className="row">
-          <div className="col-12 col-md-6">
+      <div className="container shadow-lg pt-5 pb-5 ">
+        <div className="row ">
+          <div className="col col-md-6 d-flex">
             <form onSubmit={this.handleSubmit}>
-              <div class="form-row">
-                <div class="form-group col-12 text-left mb-3">
+              <div className="form-row">
+                <div className="form-group col-12 text-left mb-3">
                   <label className="font-weight-bold">Title:</label>
                   <input
                     className="form-control"
@@ -70,17 +81,7 @@ export default class AddTask extends PureComponent {
                     placeholder="Text"
                   />
                 </div>
-                <div class="form-group col-md-6 text-left mb-3">
-                  <label className="font-weight-bold">Due by:</label>
-                  <input
-                    className="form-control"
-                    type="date"
-                    name="dueBy"
-                    value={this.state.dueBy}
-                    onChange={this.handleInputChange}
-                  />
-                </div>
-                <div class="form-group col-md-6 text-left mb-3">
+                <div className="form-group col-md-6 text-left mb-3">
                   <label className="font-weight-bold">Priority:</label>
                   <select
                     className="form-control"
@@ -93,13 +94,21 @@ export default class AddTask extends PureComponent {
                     <option value="Low">Low</option>
                   </select>
                 </div>
-                <div class="form-group text-left mt-3 col-12">
+                <div className="form-group text-left mt-3 col-12">
                   <button className="btn btn-primary" type="submit">
                     Add task
                   </button>
                 </div>
               </div>
             </form>
+          </div>
+          <div className=" col ml-5 p-1 text-left">
+            {/* <Calendar /> */}
+            <Flatpicker
+              options={{ inline: true }}
+              date={dueBy}
+              onChange={this.handleDateChange}
+            />
           </div>
         </div>
       </div>

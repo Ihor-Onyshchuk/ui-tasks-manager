@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { instance } from "../../api/apiConfig";
-import { dateFormatter } from "../../utils/date";
+import { dateFormatter } from "../../utils/date/formatter";
 import Preloader from "../../components/preloader/Preloader";
 import { NavLink } from "react-router-dom";
 
@@ -15,6 +15,7 @@ export default class TaskDetails extends PureComponent {
   componentDidMount() {
     getTaskById(this.props.match.params.taskId).then((res) => {
       const task = res.data.task;
+      console.log(task.dueBy * 1000);
       this.setState({
         task: {
           ...task,
@@ -39,7 +40,7 @@ export default class TaskDetails extends PureComponent {
             <div>Title: {title}</div>
             <div>Time: {dueBy}</div>
             <div>Priority: {priority}</div>
-            <NavLink to={`${this.props.match.params.taskId}/update`}>
+            <NavLink to={`${this.props.match.params.taskId}/edit`}>
               Edit
             </NavLink>
           </div>

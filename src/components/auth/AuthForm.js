@@ -14,7 +14,7 @@ const AuthForm = (props) => {
     showRememberMe,
   } = props;
   return (
-    <div className="container text-left">
+    <div className="container text-center">
       <div className="row justify-content-center">
         <form
           onSubmit={handleFormSubmit}
@@ -61,7 +61,7 @@ const AuthForm = (props) => {
           </div>
 
           {showRememberMe && (
-            <div className="custom-control custom-switch">
+            <div className="custom-control custom-switch text-left">
               <input
                 className="custom-control-input"
                 type="checkbox"
@@ -74,7 +74,7 @@ const AuthForm = (props) => {
                 className="mt-3 custom-control-label text-muted"
                 for="customSwitch1"
               >
-                Remember me:
+                Remember me
               </label>
             </div>
           )}

@@ -1,11 +1,14 @@
 import React, { PureComponent } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { instance } from "../api/apiConfig";
 import "./TasksList.scss";
-import { dateFormatter } from "../utils/date";
+import { dateFormatter } from "../utils/date/formatter";
 import Preloader from "../components/preloader/Preloader";
 import SortIcon from "../components/common/icons/SortIcon";
 import { TdRow, ThRow } from "../components/common/table/TRow";
+import { format } from "date-fns";
+import { connect } from "react-redux";
+import SignIn from "./auth/authFormContainer/signIn";
 
 const tHead = [
   { name: "Title", value: "title" },
@@ -13,7 +16,7 @@ const tHead = [
   { name: "Priority", value: "priority" },
 ];
 
-export class TasksList extends PureComponent {
+ class TasksList extends PureComponent {
   state = {
     tasks: [],
     isLoading: true,
@@ -25,10 +28,12 @@ export class TasksList extends PureComponent {
 
   componentDidMount() {
     instance.get("tasks?sort=dueBy%20desc").then((res) => {
-      const tasks = res.data.tasks.map((task) => ({
-        ...task,
-        dueBy: dateFormatter(task.dueBy * 1000, "dd mmmm, yyyy"),
-      }));
+      const tasks = res.data.tasks.map((task) => {
+        return {
+          ...task,
+          dueBy: format(new Date(task.dueBy * 1000), "dd MMMM, yyyy"),
+        };
+      });
       this.setState({ tasks: tasks, isLoading: false });
     });
   }
@@ -40,10 +45,9 @@ export class TasksList extends PureComponent {
           tasks: this.state.tasks.filter((task) => task.id !== taskId),
         });
     });
-  };
+  };79
 
   handleFilterChange = (sortName) => {
-    console.log("handleFilterChange");
     const {
       activeFilter: { value, name },
     } = this.state;
@@ -64,14 +68,14 @@ export class TasksList extends PureComponent {
 
   renderRow = (task) => {
     const { title, dueBy, priority, id } = task;
-    const { match } = this.props;
+    const { match} = this.props;
     return (
-      <TdRow key={id}>
+      <TdRow key={id} >
         <NavLink to={`${match.path}/${id}`}>{title}</NavLink>
         {dueBy}
         {priority}
         <>
-          <NavLink to={`${match.path}/${id}/update`}>
+          <NavLink to={`${match.path}/${id}/edit`}>
             <i className="fas fa-pencil-alt mr-3" />
           </NavLink>
           <i
@@ -93,17 +97,21 @@ export class TasksList extends PureComponent {
 
   render() {
     const { isLoading, tasks } = this.state;
-
+    
+    if (!this.props.isAuth) return <Redirect to="/sign-in"/>;
     if (isLoading) return <Preloader />;
 
     return (
-      <div>
-        <h4 className="text-monospace">Tasks List</h4>
+      <div className="container">
+        <div className="d-flex align-items-center justify-content-between mb-3 ">
+          <h4 className="text-monospace m-0">My tasks</h4>
+          <NavLink className="btn btn-primary" to="/create-task" >Add Task</NavLink>
+        </div>
         {!tasks.length ? (
-          <div>Its no tasks yet! Please press to button below to add task!</div>
+          <div>Its no tasks yet! Please press to button above to add task!</div>
         ) : (
-          <table className="table">
-            <thead>
+          <table className="table table-borderless  shadow p-3 mb-5 bg-white rounded">
+            <thead className="border-bottom border-secondary">
               <ThRow>
                 {tHead.map(({ name, value }) => (
                   <div
@@ -120,8 +128,14 @@ export class TasksList extends PureComponent {
             <tbody>{tasks.map(this.renderRow)}</tbody>
           </table>
         )}
-        <NavLink to="/create-task">Add Task</NavLink>
+       
       </div>
     );
   }
 }
+
+const mapStateToProps = ({isAuth}) => ({
+  isAuth
+})
+
+export default connect(mapStateToProps)(TasksList)

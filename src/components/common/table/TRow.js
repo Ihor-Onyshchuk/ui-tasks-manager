@@ -1,16 +1,18 @@
 import React from "react";
 
 export const TdRow = ({ children }) => (
-  <tr>
+  <tr >
     {React.Children.map(children, (child) => (
-      <td>{child}</td>
+      <td className="text-left">{child}</td>
     ))}
   </tr>
 );
 export const ThRow = ({ children }) => (
-  <tr>
+  <tr >
     {React.Children.map(children, (child) => (
-      <th>{child}</th>
+      <th className="text-left">{child}</th>
     ))}
-  </tr>
+    
+    
+    </tr>
 );
