@@ -5,13 +5,6 @@ export const CHANGE_TARIFF_VALUE = 'CHANGE_TARIFF_VALUE';
 export const FETCH_POSTS_REQUEST = 'FETCH_POSTS_REQUEST';
 export const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
-export const TOGGLE_TITLE_COLOR = 'TOGGLE_TITLE_COLOR';
-
-export const toggleTitleColor = () => {
-  return {
-    type: TOGGLE_TITLE_COLOR,
-  };
-};
 
 export const setUserAuth = () => ({
   type: SET_USER_AUTH,
