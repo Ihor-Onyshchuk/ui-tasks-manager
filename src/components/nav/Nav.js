@@ -2,27 +2,34 @@ import React from "react";
 import "./Nav.scss";
 import { NavLink } from "react-router-dom";
 import Logo from "../logo/Logo";
+import { connect } from "react-redux";
 
-const Nav = () => {
+const Nav = props => {
   return (
-    <div className="Nav">
-      <NavLink to="/">
-        <Logo />
+    <nav className="navbar navbar-expand navbar-light shadow mb-4 pl-3 py-2">
+      <NavLink to="/" className="navbar-brand">
+        <img src="placeholder.svg" width="35" height="35" title="Home" alt="" />
       </NavLink>
-      <ul>
-        <li>
-          <NavLink to="/sign-in" activeClassName="selected">
-            sign-in
+      {props.isAuth ? (
+        <NavLink to="/tasks" className="tasksLink">
+          Tasks
+        </NavLink>
+      ) : (
+        <div className="navbar-nav ml-auto">
+          <NavLink to="/sign-in" className="nav-item nav-link text-primary">
+            Sign-In
           </NavLink>
-        </li>
-        <li>
-          <NavLink to="/sign-up" activeClassName="selected">
-            sign-up
+          <NavLink to="/sign-up" className="nav-item nav-link text-success">
+            Sign-Up
           </NavLink>
-        </li>
-      </ul>
-    </div>
+        </div>
+      )}
+    </nav>
   );
 };
 
-export default Nav;
+const mapStateToProps = ({ isAuth }) => ({
+  isAuth
+});
+
+export default connect(mapStateToProps)(Nav);

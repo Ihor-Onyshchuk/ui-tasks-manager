@@ -1,20 +1,16 @@
-import { createStore, applyMiddleware } from "redux";
-import { logger } from "redux-logger";
-import reducers from "../reducers/index";
-import thunk from "redux-thunk";
+import { createStore, applyMiddleware, compose } from 'redux';
+import { logger } from 'redux-logger';
+import reducers from '../reducers/index';
+import thunk from 'redux-thunk';
 
 const initialState = {
-  toggleTitleColor: false,
-  counter: 0,
-  toggleSwitch: false,
-  tarif: "free",
-  isLoading: false,
-  isError: false,
-  posts: [],
+  isAuth: false,
 };
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
   reducers,
   initialState,
-  applyMiddleware(thunk, logger)
+  composeEnhancers(applyMiddleware(thunk, logger))
 );
