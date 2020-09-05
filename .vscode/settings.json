@@ -1,0 +1,10 @@
+{
+  "prettier.arrowParens": "avoid",
+  "prettier.jsxSingleQuote": true,
+  "files.autoSave": "onFocusChange",
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "prettier.jsxBracketSameLine": true,
+  "editor.codeActionsOnSave": null,
+  "prettier.useTabs": true
+}
